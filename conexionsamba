@@ -1,0 +1,51 @@
+#!/bin/bash
+DIRECTORIO="$HOME/mntsamba"
+#Ruta de conexion con el servidor samba
+CONNECT2="//dlink-1b7225.local/enfermeria" 
+        select option in "Conectar"  "Desconectar" "Salir"; do
+                case $option in 
+                        Conectar )
+                                if ! [  -d $DIRECTORIO ]; then 
+                                echo "Se crea el directirio $DIRECTORIO"
+                                mkdir  $DIRECTORIO
+                                fi
+
+                                echo "Inicio de conexion"
+                                read -p "Usuario:" uservar
+                                echo $CONNECT2
+                                sudo mount $CONNECT2 $DIRECTORIO -t cifs -o username=$uservar,file_mode=0766,dir_mode=0755
+                                break
+                        ;;
+
+                        Desconectar )
+
+                                if  [ -d $DIRECTORIO ]; then
+                                        TipoDirectorio=$( df -P -T $DIRECTORIO | tail  -1 | awk '{print $2}' ) 
+                                        if [ $TipoDirectorio == "cifs" ]; then 
+                                                sudo umount  $DIRECTORIO
+                                                echo "Se desconecta del servidor."
+                                        fi 
+
+                                fi
+
+                                if [ -d $DIRECTORIO ]; then
+
+                                        if [ -z $( ls -A $DIRECTORIO ) ]; then 
+                                        rm -Rf $DIRECTORIO
+                                        echo "Se ha Eliminado el Directorio $DIRECTORIO vacio" 
+
+                                        else
+                                        echo "No se puede eliminar el Directorio, por que no esta vacio"
+                                        fi
+                                else
+                                 echo " EL directorio no Existe $DIRECTORIO"
+                                fi
+
+                        break
+                        ;;
+
+                        Salir )
+                                exit
+                        ;;
+                esac
+        done
