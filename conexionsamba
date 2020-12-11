@@ -1,7 +1,7 @@
 #!/bin/bash
 DIRECTORIO="$HOME/mntsamba"
 #Ruta de conexion con el servidor samba
-CONNECT2="//dlink-1b7225.local/enfermeria" 
+CONNECT2="RUTA_A_CONECTAR" 
         select option in "Conectar"  "Desconectar" "Salir"; do
                 case $option in 
                         Conectar )
