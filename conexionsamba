@@ -1,6 +1,7 @@
 #!/bin/bash
 #Actualizacion de repositorio  2111
 #Actualizacion de reporsitorio 3111
+#Actualizacion de repositorio  4321
 DIRECTORIO="$HOME/mntsamba"
 #Ruta de conexion con el servidor samba
 CONNECT2="RUTA_A_CONECTAR" 
